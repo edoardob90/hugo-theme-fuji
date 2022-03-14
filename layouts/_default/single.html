@@ -4,9 +4,8 @@
     <h2 class="post-item post-title">
         <a href="{{ .Permalink }}">{{ .Title }}</a>
     </h2>
-    <div class="post-item post-meta">
-        {{ partial "post-meta.html" . }}
-    </div>
+    <!-- post metadata -->
+    {{ partial "post-meta.html" . }}
     <!-- post main content -->
     <div class="post-content markdown-body">
         {{ .Content }}
