@@ -47,3 +47,7 @@
 {{ end }}
 {{ partial "analytic-gtag.html" . }}
 {{ partial "analytic-cfga.html" . }}
+<!-- Netlify CMS -->
+{{ if .Site.Params.useNetlifyCMS }}
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+{{ end }}
