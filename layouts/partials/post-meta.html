@@ -2,9 +2,9 @@
 {{- if not $context.Params.hideMetadata -}}
 <div class="post-item post-meta">
     <span><i class="iconfont icon-today-sharp"></i>&nbsp;{{ $context.Date.Format "2006-01-02" }}</span>
-    {{ if ne $context.Date.YearDay $context.Lastmod.YearDay }}<span><i class="iconfont icon-sync-circle-sharp"></i>&nbsp;{{ dateFormat ( or $.Site.Params.dateFormat "2006-01-02" ) $.Page.Params.LastMod }}</span>{{ end }}
-    {{ if (and $.Site.Params.showWordCounter .Params.showWordCounter) }}<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;{{ i18n "postMetaWordCount" $context.WordCount}}</span>{{ end }}
-    {{ if (and $.Site.Params.showReadTime .Params.showReadTime) }}<span><i class="iconfont icon-time-sharp"></i>&nbsp;{{ i18n "postMetaReadingTime" $context.ReadingTime }}</span>{{ end }}
+    {{ if ne $context.Date.YearDay $context.Lastmod.YearDay }}<span><i class="iconfont icon-sync-circle-sharp"></i>&nbsp;{{ dateFormat ( or $context.Site.Params.dateFormat "2006-01-02" ) $context.Page.Params.LastMod }}</span>{{ end }}
+    {{ if (and $context.Site.Params.showWordCounter $context.Params.showWordCounter) }}<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;{{ i18n "postMetaWordCount" $context.WordCount }}</span>{{ end }}
+    {{ if (and $context.Site.Params.showReadTime $context.Params.showReadTime) }}<span><i class="iconfont icon-time-sharp"></i>&nbsp;{{ i18n "postMetaReadingTime" $context.ReadingTime }}</span>{{ end }}
     <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;{{ if $context.Params.tags }}{{ range $context.Params.tags }}<a href="{{ "/tags/" | relURL }}{{ . | urlize}}">{{ . }}</a>&nbsp;{{ end }}{{ else }}{{ i18n "postMetaNoTag" }}{{ end }}</span>
     {{- if and .showTranslations $context.IsTranslated -}}
     <span>{{ i18n "readIn" }}&nbsp;
