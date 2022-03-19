@@ -74,3 +74,8 @@
   })();
 </script>
 {{ end }}
+
+<!-- Netlify CMS -->
+{{ if .Site.Params.useNetlifyCMS }}
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+{{ end }}
