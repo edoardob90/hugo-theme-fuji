@@ -5,7 +5,7 @@
         <a href="{{ .Permalink }}">{{ .Title }}</a>
     </h2>
     <!-- post metadata -->
-    {{ partial "post-meta.html" . }}
+    {{ partial "post-meta.html" (dict "context" . "showTranslations" true) }}
     <!-- post main content -->
     <div class="post-content markdown-body">
         {{ .Content }}

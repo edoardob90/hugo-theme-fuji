@@ -1,7 +1,7 @@
 {{ define "main" }}
 <!-- page info section e.g. current tag & total archive pages -->
 <div class="page-info">
-  <span>{{ i18n "tagsCurrentTag" . }}</span>
+  <span>{{ i18n "tagsCurrentTag" }}<strong>{{ .Title }}</strong>:</span>
 </div>
 <!-- tags page range in posts with current tag -->
 {{ $paginator := .Paginator }}
@@ -11,7 +11,7 @@
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h2>
   <div class="post-item post-meta">
-    {{ partial "post-meta.html" . }}
+    {{ partial "post-meta.html" (dict "context" . "showTranslations" false) }}
   </div>
   <div class="post-item post-summary markdown-body">
     {{ .Summary }}

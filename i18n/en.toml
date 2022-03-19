@@ -43,7 +43,7 @@
     other = "Total posts: "
 
 [tagsCurrentTag]
-    other = "Posts with the tag {{ .Title }}: "
+    other = "Posts with the tag "
 
 [searchSuccess]
     other = "[NUM] results ([TIME] ms)"
@@ -53,3 +53,6 @@
 
 [searchFailed]
     other = "Failed to load index file"
+
+[readIn]
+    other = "Read in"

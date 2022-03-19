@@ -11,7 +11,7 @@
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h3>
   <div class="post-item post-meta-archive">
-    {{ partial "post-meta.html" . }}
+    {{ partial "post-meta.html" (dict "context" . "showTranslations" false) }}
   </div>
 </div>
 {{ end }}

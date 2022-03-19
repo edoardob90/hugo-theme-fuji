@@ -7,7 +7,7 @@
         <a href="{{ .Permalink }}">{{ .Title }}</a>
     </h2>
     <div class="post-item post-meta">
-        {{ partial "post-meta.html" . }}
+        {{ partial "post-meta.html" (dict "context" . "showTranslations" false) }}
     </div>
     <div class="post-item post-summary markdown-body">
         {{ .Summary }}

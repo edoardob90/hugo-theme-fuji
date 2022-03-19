@@ -1,4 +1,5 @@
 'use strict';
+import * as params from "@params";
 
 // get current theme
 function getNowTheme() {
@@ -94,33 +95,66 @@ document.querySelector('.btn .btn-toggle-mode').addEventListener('click', () => 
 });
 
 // search by fuse.js
+var fuseOptions = {
+  tokenize: true,
+  matchAllTokens: true,
+  includeMatches: true,
+  includeScore: true,
+  shouldSort: true,
+  ignoreLocation: true,
+  location: 0,
+  distance: 100,
+  threshold: 0.3,
+  minMatchCharLength: 2,
+  maxPatternLength: 64,
+  keys: [
+    {
+      name: 'title',
+      weight: 0.8,
+    },
+    {
+      name: 'tags',
+      weight: 0.3,
+    },
+    {
+      name: 'content',
+      weight: 0.5,
+    },
+  ],
+};
+
 function searchAll(key, index, counter) {
-  let fuse = new Fuse(index, {
-    shouldSort: true,
-    distance: 10000,
-    keys: [
-      {
-        name: 'title',
-        weight: 2.0,
-      },
-      {
-        name: 'tags',
-        weight: 1.5,
-      },
-      {
-        name: 'content',
-        weight: 1.0,
-      },
-    ],
-  });
+  let fuse = new Fuse(index, fuseOptions);
   let result = fuse.search(key);
-  // console.log(result);
+  console.log(result);
   if (result.length > 0) {
     document.getElementById('search-result').innerHTML = template('search-result-template', result);
+    if (params.enableHighlights) {
+      highlightResults(result, key);
+    }
     return [new Date().getTime() - counter, result.length];
   } else {
     return 'notFound';
   }
+}
+
+function highlightResults(result, search_key) {
+  result.forEach(function (value, index) {
+    var snippetHighlights = [];
+    if (fuseOptions.tokenize) {
+      value.matches.forEach(function (matchValue) {
+        if (matchValue.key == "title" || matchValue.key == "tags") {
+          snippetHighlights.push(search_key);
+        }
+      });
+    }
+    snippetHighlights.forEach(function (value) {
+      new Mark([
+        document.getElementById("search-result-title-" + index),
+        document.getElementById("search-result-tags-" + index)
+      ]).mark(value);
+    });
+  });
 }
 
 let urlParams = new URLSearchParams(window.location.search); // get params from URL
@@ -129,8 +163,10 @@ if (urlParams.has('s')) {
   let infoElements = document.querySelectorAll('.search-result-info');
   let key = urlParams.get('s'); // get search keyword, divided by space
   document.querySelector('.search-input input').setAttribute('value', key);
+  // console.log(key);
   // get search index from json
   let xhr = new XMLHttpRequest();
+  // console.log(xhr);
   xhr.open('GET', 'index.json', true);
   xhr.responseType = 'json';
   xhr.onerror = () => {

@@ -43,7 +43,7 @@
     other = "Articoli in totale: "
 
 [tagsCurrentTag]
-    other = "Articoli che contengono il tag {{ .Title }}: "
+    other = "Articoli che contengono il tag "
 
 [searchSuccess]
     other = "[NUM] risultati ([TIME] ms)"
@@ -53,3 +53,6 @@
 
 [searchFailed]
     other = "Impossibile caricare il file di indice"
+
+[readIn]
+    other = "Leggi in"
