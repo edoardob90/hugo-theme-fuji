@@ -11,7 +11,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
 {{ end }}
-{{ $options := (dict "targetPath" "assets/js/fuji.min.js" "minify" true "target" "es2015" "format" "iife" "params" (dict "enableHighlights" .Site.Params.enableHighlights)) }}
+{{ $options := (dict "targetPath" "assets/js/fuji.min.js" "minify" true "target" "es2015" "format" "iife" "params" (dict "enableHighlights" .Site.Params.enableHighlights "fuseOpts" .Site.Params.fuseOpts)) }}
 {{ $built := resources.Get "js/fuji.js" | js.Build $options }}
 <script defer src="{{ $built.RelPermalink }}"></script>
 {{ if or .Params.math .Site.Params.math }}

@@ -123,6 +123,37 @@ var fuseOptions = {
   ],
 };
 
+// Override search options with site params
+if (params.fuseOpts) {
+    var fuseOptions = {
+        isCaseSensitive: params.fuseOpts.iscasesensitive ? params.fuseOpts.iscasesensitive : false,
+        includeScore: params.fuseOpts.includescore ? params.fuseOpts.includescore : false,
+        includeMatches: params.fuseOpts.includematches ? params.fuseOpts.includematches : false,
+        minMatchCharLength: params.fuseOpts.minmatchcharlength ? params.fuseOpts.minmatchcharlength : 2,
+        shouldSort: params.fuseOpts.shouldsort ? params.fuseOpts.shouldsort : true,
+        findAllMatches: params.fuseOpts.findallmatches ? params.fuseOpts.findallmatches : false,
+        keys: params.fuseOpts.keys ? params.fuseOpts.keys : [
+          {
+            name: 'title',
+            weight: 0.8,
+          },
+          {
+            name: 'tags',
+            weight: 0.3,
+          },
+          {
+            name: 'content',
+            weight: 0.5,
+          },
+        ],
+        location: params.fuseOpts.location ? params.fuseOpts.location : 0,
+        threshold: params.fuseOpts.threshold ? params.fuseOpts.threshold : 0.4,
+        distance: params.fuseOpts.distance ? params.fuseOpts.distance : 100,
+        ignoreLocation: params.fuseOpts.ignorelocation ? params.fuseOpts.ignorelocation : true,
+        maxPatternLength: params.fuseOpts.maxPatternLength ? params.fuseOpts.maxPatternLength : 64
+    }
+}
+
 function searchAll(key, index, counter) {
   let fuse = new Fuse(index, fuseOptions);
   let result = fuse.search(key);
