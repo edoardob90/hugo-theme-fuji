@@ -33,6 +33,11 @@
 {{ partial "opengraph.html" . }}
 <!-- dep -->
 {{ partial "styles.html" . }}
+<!-- KaTeX CSS before the main stylesheet is included -->
+{{ if or .Params.math .Site.Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+{{ end }}
+<!-- main stylesheet -->
 {{ $options := (dict "targetPath" "assets/css/fuji.min.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/fuji.scss" | resources.ToCSS $options | resources.Fingerprint }}
 <link rel="stylesheet" integrity="{{ $style.Data.Integrity }}" href="{{ $style.Permalink }}" />
